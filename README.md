@@ -1,5 +1,3 @@
-# *******Unfinished script, may not work yet*************
-
 # Battery Full Notification
 A simple script to display a notification when your battery is full in PopOS made for using it as a Cron job.
 
@@ -11,7 +9,8 @@ It also does not require to install libnotify-bin for sending the notification w
 
 The sound and icon used for the notification is included in PopOS only but can be changed easyly in the script.
 
-![preview](http://i.imgur.com/rVGMBK8.png)
+Example set at 57%. (default is 99%):
+![preview](https://i.imgur.com/ao6Y8Ob.png)
 
 ## Installation :
 
@@ -24,20 +23,24 @@ The sound and icon used for the notification is included in PopOS only but can b
         git clone https://github.com/raafaar/battery-full-notification-cron.git
         
 3. Add the `batteryfull.sh` script as a con job:
-   As regular user, run:
+
+   As regular user in a terminal, run:
+   ```
+   id -u
+   ```
+   take note of the displayed number. Then run:
    ```
    crontab -e
    ```
-   then add this at the end of the file:
+   it will open an editor, add this at the end of the file (replace {userId} with the number from the `id -u` command):
    ```
-   * * * * * /path/to/battery-full-notification/batteryfull.sh
+   */5 * * * * export XDG_RUNTIME_DIR=/run/user/{userId} && /path/to/battery-full-notification/batteryfull.sh
    ```
+   This cron job gets executed every 5 minutes. You can change it replacing "*/5", at the begining of the line, with the number of minutes you want.
 5. Done!
 
 
 ----
-
-<sup>Battery icon credit to [DreamStale](http://www.dreamstale.com/free-download-40-battery-vector-icons/).</sup>
 
 
     
